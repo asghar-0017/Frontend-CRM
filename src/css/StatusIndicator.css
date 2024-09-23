@@ -1,0 +1,38 @@
+.status-indicator {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+  }
+  
+  .status-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .status-item:last-child {
+    margin-right: 0; 
+  }
+  
+  .status-icon {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .status-icon.progress {
+    background-color: #FFC107;
+  }
+  
+  .status-icon.complete {
+    background-color: #03C04A;
+  }
+  
+  @media (max-width: 600px) {
+    .status-indicator{
+        display: none;
+    }
+  }
+  

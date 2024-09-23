@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Poppins;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("./assets/fonts/Poppins-Medium.ttf");
+}
+
+/* Light Theme */
+:root {
+    --background-color: #F9FAFC;
+    --text-color: black;
+  }
+  
+  /* Dark Theme */
+  [data-theme='dark'] {
+    --background-color: black;
+    --text-color: white;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  

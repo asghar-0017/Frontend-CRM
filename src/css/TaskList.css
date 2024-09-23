@@ -1,0 +1,54 @@
+.task-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .task-item {
+    flex: 1 1 calc(25% - 10px); 
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    max-width: calc(25% - 10px); 
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .task-item .task-number {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+  
+  .task-item .review-icon {
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 1200px) {
+    .task-item {
+      flex: 1 1 calc(33.33% - 10px); 
+      max-width: calc(33.33% - 10px); 
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .task-item {
+      flex: 1 1 calc(50% - 10px); 
+      max-width: calc(50% - 10px); 
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .task-item {
+      flex: 1 1 calc(100% - 10px); 
+      max-width: calc(100% - 10px); 
+    }
+  }
+  
