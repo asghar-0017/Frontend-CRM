@@ -48,8 +48,6 @@ const GetData = ({
             return newData;
           });
 
-        } else {
-          console.log("Received updated data via WebSocket:", payload.isActivated);
         }        
         if(payload.isActivated === false){
           localStorage.setItem("status", false)

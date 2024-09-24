@@ -8,7 +8,6 @@ const ShowAgentTasks = () => {
         listName="Tasks"
         apiEndpointGet={"get-assign-task-taskNo"}
         customId={"leadId"}
-        showTimestamps={true} 
         apiEndpointShowData={"get-assign-task"}
         apiEndpointDeleteData={"delete-assign-task"}
         apiEndpointUpdateData={"update-assign-task"}

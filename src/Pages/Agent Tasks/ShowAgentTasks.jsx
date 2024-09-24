@@ -114,7 +114,7 @@ const ShowAgentTasks = () => {
 
   const getBackgroundColor = (statuses) => {
     const status = Array.from(statuses)[0];
-    return statusColorMap[status] || "#FFC107" || "#03C04A";
+    return statusColorMap[status];
   };
 
   return (

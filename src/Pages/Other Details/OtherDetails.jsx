@@ -8,7 +8,6 @@ const OtherDetails = () => {
         listName="Others"
         apiEndpointGet="get-other"
         customId={"leadId"}
-        showTimestamps={true}
         apiEndpointShowData={"get-other"}
         apiEndpointDeleteData={"delete-other"}
         apiEndpointUpdateData={"update-followUp-other"}

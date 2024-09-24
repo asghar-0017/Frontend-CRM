@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { deleteDataById, fetchDataByIds, updateDataById } from "../../config/Api Services/apiServices";
 import { showSuccessToast } from "../Toast/Toast";
 import { IoMdDoneAll } from "react-icons/io";
+import agnetInfo from "../../Zunstand/agentInfo";
 import Swal from "sweetalert2";
 
 const FormHeader = ({
@@ -33,6 +34,7 @@ const FormHeader = ({
   const navigate = useNavigate();
   const { agentId, taskId } = useParams();
   const token = localStorage.getItem("token");
+  const { userData } = agnetInfo();
 
   const [taskStatus, setTaskStatus] = useState("");
 
@@ -82,6 +84,7 @@ const handleDone = async () => {
   }
 };
 
+if(userData.role == "agent"){
   useEffect(() => {
     const checkStatus = async () => {
       try {
@@ -99,6 +102,7 @@ const handleDone = async () => {
 
     checkStatus();
   }, [agentId, taskId, token]); 
+}
 
   return (
     <div className="form-top">

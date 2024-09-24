@@ -9,7 +9,6 @@ const AllTasks = () => {
         listName="All Tasks"
         apiEndpointGet={"get-assign-task"}
         customId={"leadId"}
-        showTimestamps={true} 
         search={"Task Id"}
         apiEndpointShowData={"get-assign-task"}
         apiEndpointDeleteData={"delete-assign-task"}
