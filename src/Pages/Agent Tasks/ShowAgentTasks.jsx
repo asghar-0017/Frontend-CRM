@@ -39,12 +39,16 @@ const ShowAgentTasks = () => {
     setModalOpen(false);
   };
 
+  const agentId = localStorage.getItem("agentId");
+
   useEffect(() => {
     if (!socketRef.current) {
       socketRef.current = io(apiKey);
 
       socketRef.current.on("receive_message", (payload) => {
-        if (!payload.message) {
+        if (!payload.message &&  payload.data.agentId == agentId) {
+          console.log(payload.data);
+          
           setData((prevData) => {
             const updatedData = [...prevData];
 

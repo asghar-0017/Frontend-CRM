@@ -17,6 +17,7 @@ const ShowAgentCSVTasks = () => {
         addTask={true}
         csvData={true}
         isDeleteTask={true}
+        deleteAssignTask={"delete-assign-tasks"}
       />
     </div>
   )

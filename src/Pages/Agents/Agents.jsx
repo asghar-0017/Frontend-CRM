@@ -12,7 +12,7 @@ const Agents = () => {
     
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <Form
+      <Form 
         listName="Agents"
         addName="Agent"
         chat={true}

@@ -72,6 +72,25 @@ export const deleteDataById = async (endpoint, token, id, id2) => {
   }
 };
 
+export const deleteData = async (endpoint, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const url = `${apiKey}/${endpoint}`;
+
+  try {
+    const response = await axios.delete(url, config);       
+    return response.data.data;
+  } catch (error) {
+    showErrorToast(error.message)
+    throw new Error('Error deleting data: ' + error.message);
+  }
+};
+
 export const updateDataById = async (endpoint, token, id, data, id2) => {
   const config = {
     headers: {

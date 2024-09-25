@@ -9,10 +9,11 @@ const AllTasks = () => {
         listName="All Tasks"
         apiEndpointGet={"get-assign-task"}
         customId={"leadId"}
-        search={"Task Id"}
+        search={"Lead Id"}
         apiEndpointShowData={"get-assign-task"}
         apiEndpointDeleteData={"delete-assign-task"}
         apiEndpointUpdateData={"update-assign-task"}
+        isTask={true}
       />
     </div>
   );

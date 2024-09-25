@@ -5,6 +5,7 @@ import { GrTableAdd } from "react-icons/gr";
 import { RiChatFollowUpLine } from "react-icons/ri";
 import { FaTasks, FaRegTrashAlt } from "react-icons/fa";
 import { FaRegMessage } from "react-icons/fa6";
+import { GoTasklist } from "react-icons/go";
 import "../../css/Sidebar.css";
 import { Button } from "@mui/material";
 import { TbListDetails } from "react-icons/tb";
@@ -63,6 +64,16 @@ const Sidebar = () => {
         >
           <FaTasks  color="#1640D6" size={20} />
           <span className="sidebar-span">All Tasks</span>
+        </div>
+
+        <div
+          className={`sidebar-content ${
+            location.pathname === "/remaining-tasks" ? "active" : ""
+          }`}
+          onClick={() => navigate("/remaining-tasks")}
+        >
+          <GoTasklist  color="#1640D6" size={22} />
+          <span className="sidebar-span">Remaining Tasks</span>
         </div>
 
         <div

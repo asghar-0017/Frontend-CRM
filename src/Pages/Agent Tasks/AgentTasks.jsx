@@ -20,15 +20,19 @@ const ShowAgentTasks = () => {
   const [taskNo, setTaskNo] = useState("");
   const socketRef = useRef(null);
   const { apiKey } = API_CONFIG;
+  const agentId = localStorage.getItem("agentId");
 
   useEffect(() => {
     if (!socketRef.current) {
       socketRef.current = io(apiKey);
 
       socketRef.current.on("receive_message", (payload) => {
-        if (!payload.message) {
+        const agentId1 = payload.length > 0 ? payload[0].agentId : null;
+        if (!payload.message && agentId1 == agentId) {
           setData((prevData) => {
             const updatedData = [...prevData];
+            console.log(payload);
+            
 
             payload.forEach((newTask) => {
               const index = updatedData.findIndex(

@@ -48,8 +48,11 @@ const GetData = ({
             return newData;
           });
 
+        } else {
+          console.log("Received updated data via WebSocket:", payload.isActivated);
         }        
-        if(payload.isActivated === false){
+        
+        if(payload.isActivated === false && userData.role === "agent"){
           localStorage.setItem("status", false)
           localStorage.removeItem("token");
           localStorage.removeItem("agentId");
@@ -92,34 +95,22 @@ const GetData = ({
         if (Array.isArray(data) && data.length > 0) {
           const fieldSet = new Set();
           data.forEach(item => Object.keys(item).forEach(key => fieldSet.add(key)));
-          const availableFields = Array.from(fieldSet);
           
+          const excludedFields = ['id', 'isActivated', 'updated_at'];
+          const availableFields = Array.from(fieldSet).filter(field => !excludedFields.includes(field));
+        
           const dynamicColumns = availableFields.map(field => ({
             title: field.charAt(0).toUpperCase() + field.slice(1).replace(/_/g, ' '),
             dataIndex: field,
             key: field,
-            render: (text) => text === null || text === undefined ? '-' : text
+            render: (text) => {
+              if (field === 'created_at' && text) {
+                return new Date(text).toLocaleDateString();
+              }
+              return text === null || text === undefined ? '-' : text;
+            }
           }));
-
-          if (showTimestamps) {
-            if (availableFields.includes("created_at")) {
-              dynamicColumns.push({
-                title: "Created At",
-                dataIndex: "created_at",
-                key: "created_at",
-                // render: (text) => text ? new Date(text).toLocaleDateString() : '-',
-              });
-            }
-            if (availableFields.includes("updated_at")) {
-              dynamicColumns.push({
-                title: "Updated At",
-                dataIndex: "updated_at",
-                key: "updated_at",
-                // render: (text) => text ? new Date(text).toLocaleDateString() : '-',
-              });
-            }
-          }
-
+        
           initialDataRef.current = data;
           setData(data);
           setFilteredData(data);
