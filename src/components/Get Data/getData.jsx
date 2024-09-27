@@ -135,12 +135,14 @@ const GetData = ({
 
           setColumns(dynamicColumns);
         }
-
+        
+        
         if (payload.length === 1 && (payload.agent || (payload.data && payload.data.task) || payload.lead)) {
+          console.log(payload);
           setData(prevData => {
-            const newData = Array.isArray(payload.agent || payload.data || payload.lead?.dynamicLead)
-              ? [...prevData, ...(payload.agent || payload.data || payload.lead?.dynamicLead)]
-              : [...prevData, payload.agent || payload.data || payload.lead?.dynamicLead];
+            const newData = Array.isArray(payload.agent || payload.data || payload.lead)
+              ? [...prevData, ...(payload.agent || payload.data || payload.lead)]
+              : [...prevData, payload.agent || payload.data || payload.lead];
             setFilteredData(newData);
             setTotal(newData.length);
             console.log(newData);
@@ -156,7 +158,7 @@ const GetData = ({
             return newData;
           });
         } else {
-          console.log("Received updated data via WebSocket:", payload.isActivated);
+          console.log("Received updated data via WebSocket:", payload);
         }
 
         if (payload.isActivated === false && userData.role === "agent") {

@@ -132,3 +132,14 @@
 .user-btn Button{
   width: 45%;
 }
+
+.inputField.error {
+  border-color: red; 
+}
+
+.error-message {
+  color: red; 
+  font-size: 0.8em; 
+}
+
+

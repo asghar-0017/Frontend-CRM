@@ -4,17 +4,22 @@ import { useNavigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import Swal from "sweetalert2";
 import { Button } from "@mui/material";
+import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import { loginUser } from "../../config/Api Services/apiServices";
-import agnetInfo from "../../Zunstand/agentInfo";
+import agentInfo from "../../Zunstand/agentInfo";
 
 const LoginForm = () => {
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
-  const { updatedUserData } = agnetInfo();
+  const { updatedUserData } = agentInfo();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (inputRef1.current) {
@@ -23,16 +28,15 @@ const LoginForm = () => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setProgress(50);
 
     try {
-      const res = await loginUser("login-agent", username, password);
+      const res = await loginUser("login-agent", data.username, data.password);
       if (res) {
         localStorage.setItem("token", res.token);
         localStorage.setItem("agentId", res.agent.agentId);
-        if (res.agent.isActivated === true) {
+        if (res.agent.isActivated) {
           localStorage.setItem("status", true);
         }
         updatedUserData(res.agent);
@@ -55,19 +59,6 @@ const LoginForm = () => {
     }
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSubmit(event);
-    }
-  };
-
-  const handleKeyDown2 = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      inputRef2.current.focus();
-    }
-  };
-
   return (
     <div className="form">
       <LoadingBar
@@ -75,7 +66,7 @@ const LoginForm = () => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <form className="form_main" onSubmit={handleSubmit}>
+      <form className="form_main" onSubmit={handleSubmit(onSubmit)}>
         <p className="heading">Agent Login</p>
 
         <div className="inputContainer">
@@ -91,17 +82,21 @@ const LoginForm = () => {
           </svg>
           <input
             type="email"
-            className="inputField"
+            className={`inputField ${errors.username ? 'error' : ''}`}
             id="email"
             placeholder="Email"
-            value={username}
             ref={inputRef1}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyDown={handleKeyDown2}
-            required
+            {...register("username", { 
+              required: "Email is required.",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Enter a valid email address."
+              }
+            })}
             autoComplete="off"
           />
         </div>
+          {errors.username && <span className="error-message">{errors.username.message}</span>}
 
         <div className="inputContainer">
           <svg
@@ -116,17 +111,21 @@ const LoginForm = () => {
           </svg>
           <input
             type="password"
-            className="inputField"
+            className={`inputField ${errors.password ? 'error' : ''}`}
             id="password"
             placeholder="Password"
-            value={password}
             ref={inputRef2}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown}
-            required
+            {...register("password", { 
+              required: "Password is required.",
+              minLength: { 
+                value: 6, 
+                message: "Password must be at least 6 characters." 
+              }
+            })}
             autoComplete="off"
           />
         </div>
+          {errors.password && <span className="error-message">{errors.password.message}</span>}
 
         <button type="submit" id="button">
           Submit
