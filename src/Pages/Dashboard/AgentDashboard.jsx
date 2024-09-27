@@ -1,10 +1,10 @@
-import React, { lazy, useEffect } from "react";
+import React, { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import "../../css/Dashboard.css";
-import MessageListener from "../../components/MessageRecieved/MessageRecieved";
 import { EmitOnlineAgent } from "../../components/OnlineAgents/OnlineAgents";
 
 const Navbar = lazy(() => import("../../components/Navbar/Navbar"));
+const MessageListener = lazy(() => import("../../components/MessageRecieved/MessageRecieved"));
 const Sidebar = lazy(() => import("../../components/Sidebar/AgentSidebar"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
 const Leads = lazy(() => import("../Leads/AgentLeads"));

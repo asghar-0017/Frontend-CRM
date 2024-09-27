@@ -22,7 +22,6 @@ const Leads = () => {
         add={true}
         customId={"leadId"}
         tabs={true}
-        showTimestamps={false}
         feedback={true}
         isDelete={false}
         apiEndpointShowData={"get-lead"}

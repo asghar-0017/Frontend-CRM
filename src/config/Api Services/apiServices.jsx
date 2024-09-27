@@ -8,20 +8,10 @@ const { apiKey } = API_CONFIG;
 initializeSocket();
 
 export const loginUser = async (endpoint ,email, password) => {
-  const { apiKey } = API_CONFIG;
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   try {    
-    const response = await axios.post(`${apiKey}/${endpoint}`, { email, password });
-    // console.log(response.data);
-    
+    const response = await axios.post(`${apiKey}/${endpoint}`, { email, password });    
     return response.data;
   } catch (error) {
-    console.log(error);
     showErrorToast(error.message)
     throw new Error('Error logging in: ' + error.message);
   }
@@ -55,11 +45,8 @@ export const fetchDataById = async (endpoint, token, id) => {
 
   try {
     const response = await axios.get(`${apiKey}/${endpoint}/${id}`, config);   
-    console.log(`${apiKey}/${endpoint}/${id}`, config);
-    
     return response.data.data;
   } catch (error) {
-    // showErrorToast(error.message)
     throw new Error('Error fetching data: ' + error.message);
   }
 };
@@ -73,6 +60,25 @@ export const deleteDataById = async (endpoint, token, id, id2) => {
   };
 
   const url = id2 ? `${apiKey}/${endpoint}/${id}/${id2}` : `${apiKey}/${endpoint}/${id}`;
+
+  try {
+    const response = await axios.delete(url, config);       
+    return response.data.data;
+  } catch (error) {
+    showErrorToast(error.message)
+    throw new Error('Error deleting data: ' + error.message);
+  }
+};
+
+export const deleteData = async (endpoint, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const url = `${apiKey}/${endpoint}`;
 
   try {
     const response = await axios.delete(url, config);       
@@ -173,7 +179,6 @@ export const fetchDataByIds = async (endpoint, token, id1, id2) => {
     const response = await axios.get(`${apiKey}/${endpoint}/${id1}/${id2}`, config);  
     return response.data.data;
   } catch (error) {
-    // showErrorToast(error.message)
     throw new Error('Error fetching data: ' + error.message);
   }
 };

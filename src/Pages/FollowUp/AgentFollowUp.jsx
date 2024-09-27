@@ -8,7 +8,6 @@ const FollowUp = () => {
         listName="Follow Up"
         apiEndpointGet="get-all-followUp"
         customId={"leadId"}
-        showTimestamps={false}
         apiEndpointShowData={"get-followUp"}
         apiEndpointDeleteData={"delete-followUp"}
         // apiEndpointUpdateData={"update-followUp"}

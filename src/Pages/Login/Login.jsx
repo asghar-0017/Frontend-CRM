@@ -1,21 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../css/Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import Swal from "sweetalert2";
-import API_CONFIG from '../../config/API/api';
 import { Button } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { loginUser } from "../../config/Api Services/apiServices";
 
 const LoginForm = () => {
-  const { apiKey } = API_CONFIG;
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = React.useState(0);
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
 
   useEffect(() => {
     if (inputRef1.current) {
@@ -23,15 +26,13 @@ const LoginForm = () => {
       inputRef1.current.select();
     }
   }, []);
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setProgress(50);
 
+  const onSubmit = async (data) => {
+    setProgress(50);
     try {
-      const res = await loginUser("auth" ,username, password);
+      const res = await loginUser("auth", data.username, data.password);
       if (res) {
-        localStorage.setItem("token", res.token);        
+        localStorage.setItem("token", res.token);
         setProgress(100);
         setTimeout(() => {
           navigate("/");
@@ -51,19 +52,6 @@ const LoginForm = () => {
     }
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      handleSubmit(event);
-    }
-  };
-
-  const handleKeyDown2 = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault(); 
-      inputRef2.current.focus(); 
-    }
-  };
-
   return (
     <div className="form">
       <LoadingBar
@@ -71,7 +59,7 @@ const LoginForm = () => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <form className="form_main" onSubmit={handleSubmit}>
+      <form className="form_main" onSubmit={handleSubmit(onSubmit)}>
         <p className="heading">Admin Login</p>
 
         <div className="inputContainer">
@@ -87,17 +75,20 @@ const LoginForm = () => {
           </svg>
           <input
             type="text"
-            className="inputField"
+            className={`inputField ${errors.username ? 'error' : ''}`}
             id="username"
             placeholder="Username"
-            value={username}
             ref={inputRef1}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyDown={handleKeyDown2}
-            required
+            {...register("username", {
+              required: "Username is required.",
+              minLength: { value: 5, message: "Username must be at least 5 characters." }
+            })}
             autoComplete="off"
           />
         </div>
+          {errors.username && (
+            <span className="error-message">{errors.username.message}</span>
+          )}
 
         <div className="inputContainer">
           <svg
@@ -112,17 +103,20 @@ const LoginForm = () => {
           </svg>
           <input
             type="password"
-            className="inputField"
+            className={`inputField ${errors.password ? 'error' : ''}`}
             id="password"
             placeholder="Password"
-            value={password}
             ref={inputRef2}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown}
-            required
+            {...register("password", {
+              required: "Password is required.",
+              minLength: { value: 5, message: "Password must be at least 5 characters." }
+            })}
             autoComplete="off"
           />
         </div>
+          {errors.password && (
+            <span className="error-message">{errors.password.message}</span>
+          )}
 
         <button type="submit" id="button">
           Submit
@@ -130,10 +124,10 @@ const LoginForm = () => {
         <a className="forgotLink" onClick={() => navigate('/checkemail')}>
           Forgot your password?
         </a>
-      <div className="user-btn">
-      <Button variant="contained" disabled>Admin</Button>
-      <Button variant="contained" onClick={()=>navigate("/agentLogin")}>Agent</Button>
-      </div>
+        <div className="user-btn">
+          <Button variant="contained" disabled>Admin</Button>
+          <Button variant="contained" onClick={() => navigate("/agentLogin")}>Agent</Button>
+        </div>
       </form>
     </div>
   );

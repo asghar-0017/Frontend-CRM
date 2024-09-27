@@ -24,9 +24,8 @@ const predefinedFeedbackOptions = [
   { value: "other", label: "Other" },
 ];
 
-// Utility function to check if feedback is predefined
-const isPredefinedFeedback = (value) => {
-  return ["onGoing", "hangUp", "voiceMail"].includes(value);
+const isPredefinedFeedback = () => {
+  return ["onGoing", "hangUp", "voiceMail"];
 };
 
 const EditData = ({ open, onClose, data, loading, onSave }) => {
@@ -63,9 +62,6 @@ const EditData = ({ open, onClose, data, loading, onSave }) => {
   const handleSave = () => {
     onSave(formData);
   };
-  
-
-  
 
   return (
     <Drawer
@@ -134,7 +130,6 @@ const EditData = ({ open, onClose, data, loading, onSave }) => {
                         </FormControl>
                       </Grid>
                     ) : (
-                      // (feedbackOption !== "followUp" && feedbackOption !== "other") && (
                         <Grid item xs={12} key={key}>
                         <TextField
                           label={keyMapping[key] || key}
@@ -143,53 +138,14 @@ const EditData = ({ open, onClose, data, loading, onSave }) => {
                           onChange={handleChange}
                           fullWidth
                           margin="normal"
-                          // Disable if the key is 'followUpDetail' or 'otherDetail' and feedbackOption is not 'followUp' or 'other'
                           disabled={key === "FollowUpDetail" && feedbackOption !== "followUp" || key === "OtherDetail" && feedbackOption !== "other" || key == "taskNo" || key == "status" || key == "leadId"}
                         />
                       </Grid>
                       
-                      // )
                     )
                   ) : null
                 )}
-                
-                {console.log(formData.CustomerFeedBack)
-                }
-
-
-{/* {formData.CustomerFeedBack !== "followUp" &&
-                 <>
-                    {(formData.CustomerFeedBack === feedbackOption) && (feedbackOption === "followUp" || formData.CustomerFeedBack != feedbackOption) && (
-                      <Grid item xs={12}>
-                        <TextField
-                          label="Follow Up Details"
-                          name="FollowUpDetail"
-                          value={formData.FollowUpDetail || ""}
-                          onChange={handleChange}
-                          fullWidth
-                          margin="normal"
-                        />
-                      </Grid>
-                    )}
-                    </>
-                  }
-                  { formData.CustomerFeedBack !== "other" && 
-                  <>
-                    {(formData.CustomerFeedBack === feedbackOption) && (feedbackOption === "other" || formData.CustomerFeedBack != feedbackOption) && (
-                      <Grid item xs={12}>
-                        <TextField
-                          label="Other Details"
-                          name="OtherDetail"
-                          value={formData.OtherDetail || ""}
-                          onChange={handleChange}
-                          fullWidth
-                          margin="normal"
-                        />
-                      </Grid>
-                    )}</>
-                  } */}
-
-                 {/* {formData.CustomerFeedBack !== "followUp" && formData.CustomerFeedBack !== "other" && */}
+                 {/* {!isPredefinedFeedback().includes(feedbackOption) || formData.CustomerFeedBack !== "followUp"  && */}
                   <>
                     {(formData.CustomerFeedBack === feedbackOption) && (feedbackOption === "followUp" || formData.CustomerFeedBack != feedbackOption) && (
                       <Grid item xs={12}>
@@ -216,6 +172,7 @@ const EditData = ({ open, onClose, data, loading, onSave }) => {
                       </Grid>
                     )}
                   </>
+{/* } */}
               </Grid>
             ) : (
               <Typography>No record available.</Typography>

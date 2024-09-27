@@ -42,7 +42,9 @@ const Form = ({
   csvData,
   isAdditional,
   isDeleteTask,
-  isMarkAsDone
+  isMarkAsDone,
+  isTask,
+  deleteAssignTask
 }) => {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -269,6 +271,11 @@ const Form = ({
         isAdditional={isAdditional}
         isDelete={isDeleteTask}
         isMarkAsDone={isMarkAsDone}
+        isTask={isTask}
+        deleteAssignTask={deleteAssignTask}
+        data={data}
+        setData={setData}
+        setColumns={setColumns}
       />
       <TableComponent
         data={filteredData}
