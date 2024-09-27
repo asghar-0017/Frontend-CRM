@@ -71,6 +71,10 @@ const Form = ({
     csvData
   });
 
+  console.log(filteredData);
+  
+  
+
   
 
   useEffect(() => {
