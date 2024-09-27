@@ -38,6 +38,9 @@ const FormHeader = ({
   isMarkAsDone,
   isTask,
   deleteAssignTask,
+  data,
+  setData,
+  setColumns
 }) => {
   const navigate = useNavigate();
   const { agentId, taskId } = useParams();
@@ -58,7 +61,11 @@ const FormHeader = ({
       if (agentId && taskId) {
         await deleteDataById(deleteAssignTask, token, agentId, taskId);
         navigate(-1);
-      } else await deleteData(deleteAssignTask, token);
+      } else {
+        await deleteData(deleteAssignTask, token);
+        setData([])
+        setColumns([])
+      }
       showSuccessToast("Tasks deleted successfully.");
     } catch (error) {
       console.error("Error Deleting data:", error);
@@ -171,8 +178,10 @@ const FormHeader = ({
             variant="contained"
             className="form-btn addNew"
             onClick={handleDelete}
-            style={{ backgroundColor: "#1640D6" }}
+            style={{ backgroundColor: data.length !== 0 ? "#1640D6" : "#B0B0B0",
+             }}
             endIcon={<MdDelete size={18} color="white" />}
+            disabled={data.length == 0}
           >
             Delete All
           </Button>

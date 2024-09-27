@@ -125,7 +125,6 @@ const TableComponent = ({
       )}
     </Menu>
   );
-  
 
   return (
     <div className="form-table">

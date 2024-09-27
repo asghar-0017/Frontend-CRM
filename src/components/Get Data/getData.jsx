@@ -143,6 +143,7 @@ const GetData = ({
               : [...prevData, payload.agent || payload.data || payload.lead?.dynamicLead];
             setFilteredData(newData);
             setTotal(newData.length);
+            console.log(newData);
             return newData;
           });
         } else if (payload.length > 1) {
@@ -150,9 +151,7 @@ const GetData = ({
             const newData = Array.isArray(payload)
               ? [...prevData, ...payload.map(item => item)]
               : [...prevData, payload.map(item => item)];
-            setFilteredData(newData);
-            console.log(newData);
-            
+            setFilteredData(newData);            
             setTotal(newData.length);
             return newData;
           });

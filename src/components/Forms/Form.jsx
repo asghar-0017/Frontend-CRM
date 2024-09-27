@@ -71,10 +71,6 @@ const Form = ({
     csvData
   });
 
-  console.log(filteredData);
-  
-  
-
   
 
   useEffect(() => {
@@ -277,6 +273,9 @@ const Form = ({
         isMarkAsDone={isMarkAsDone}
         isTask={isTask}
         deleteAssignTask={deleteAssignTask}
+        data={data}
+        setData={setData}
+        setColumns={setColumns}
       />
       <TableComponent
         data={filteredData}
