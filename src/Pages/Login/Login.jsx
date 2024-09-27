@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../css/Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import Swal from "sweetalert2";
 import API_CONFIG from '../../config/API/api';

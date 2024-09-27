@@ -1,11 +1,10 @@
-import React, { lazy, useState } from "react";
+import React, { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import "../../css/Dashboard.css";
-import MessageListener from "../../components/MessageRecieved/MessageRecieved";
-// import OnlineAgentsListener from "../../components/OnlineAgents/OnlineAgents";
 
 const Navbar = lazy(() => import("../../components/Navbar/Navbar"));
 const Sidebar = lazy(() => import("../../components/Sidebar/Sidebar"));
+const MessageListener = lazy(() => import("../../components/MessageRecieved/MessageRecieved"));
 const NotFound = lazy(() => import("../../components/NotFound/NotFound"));
 const Leads = lazy(() => import("../Leads/Leads"));
 const FollowUp = lazy(() => import("../FollowUp/FollowUp"));
@@ -20,8 +19,6 @@ const Protected = lazy(() => import("../../components/Protected/Protected"));
 const Messages = lazy(() => import("../Chat/Messages"));
 
 const Dashboard = () => {
-  
-
   return (
     <div>
       <Navbar />
@@ -43,7 +40,6 @@ const Dashboard = () => {
             <Route path="/messages" element={<Protected Component={Messages} allowedRoles={['admin']} />} />
             <Route path="/agentTasks/:id" element={<Protected Component={ShowAgentTasks} allowedRoles={['admin']} />} />
             <Route path="/tasksCSV/:agentId/:taskId" element={<Protected Component={TasksCSV} allowedRoles={['admin']} />} />
-            {/* <Route path="/agentChat/:id" element={<Protected Component={ShowAgentChat} allowedRoles={['admin']} />} /> */}
 
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />

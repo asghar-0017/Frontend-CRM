@@ -131,9 +131,6 @@ const LoginForm = () => {
         <button type="submit" id="button">
           Submit
         </button>
-        {/* <a className="forgotLink" onClick={() => navigate('/checkemail')}>
-          Forgot your password?
-        </a> */}
         <div className="user-btn">
           <Button variant="contained" onClick={() => navigate("/login")}>
             Admin

@@ -8,12 +8,10 @@ const { apiKey } = API_CONFIG;
 initializeSocket();
 
 export const loginUser = async (endpoint ,email, password) => {
-  const { apiKey } = API_CONFIG;
   try {    
     const response = await axios.post(`${apiKey}/${endpoint}`, { email, password });    
     return response.data;
   } catch (error) {
-    console.log(error);
     showErrorToast(error.message)
     throw new Error('Error logging in: ' + error.message);
   }
