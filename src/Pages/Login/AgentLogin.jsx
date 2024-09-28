@@ -117,10 +117,10 @@ const LoginForm = () => {
             ref={inputRef2}
             {...register("password", { 
               required: "Password is required.",
-              minLength: { 
-                value: 6, 
-                message: "Password must be at least 6 characters." 
-              }
+              // minLength: { 
+              //   value: 5, 
+              //   message: "Password must be at least 6 characters." 
+              // }
             })}
             autoComplete="off"
           />
