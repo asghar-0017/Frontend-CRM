@@ -1,0 +1,1 @@
+import{j as s}from"./index-C05QhGEP.js";import{b as e}from"./index-By0aXpWG.js";const t=()=>s.jsxs("button",{className:"icon-button",style:{height:"100%"},children:[s.jsx("div",{className:"svg-wrapper-1",children:s.jsx("div",{className:"svg-wrapper",children:s.jsx("div",{className:"send",children:s.jsx(e,{})})})}),s.jsx("span",{children:"Send"})]});export{t as S};
